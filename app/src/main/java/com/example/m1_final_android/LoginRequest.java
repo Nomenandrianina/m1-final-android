@@ -2,15 +2,16 @@ package com.example.m1_final_android;
 
 public class LoginRequest {
 
-    private String nom;
+
+    private String email;
     private String password;
 
-    public String getNom() {
-        return nom;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

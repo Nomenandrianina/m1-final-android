@@ -1,18 +1,20 @@
 package com.example.m1_final_android;
 
-public class LoginReponse {
+import java.io.Serializable;
 
-    private int id;
+public class LoginReponse implements Serializable {
+
+    private String id;
     private String nom;
     private String prenom;
     private String email;
     private String password;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

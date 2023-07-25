@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -38,8 +42,34 @@ public class LoginActivity extends AppCompatActivity {
                     String messageRequired = "Veuillez remplir tous les champs.";
                     Toast.makeText(LoginActivity.this,messageRequired, Toast.LENGTH_SHORT).show();
                 }else{
-
+                    LoginRequest loginRequest = new LoginRequest();
+                    loginRequest.setEmail(inputEmail.getText().toString());
+                    loginRequest.setPassword(inputPassword.getText().toString());
                 }
+            }
+        });
+    }
+
+    public void loginUtilisateur(LoginRequest loginRequest){
+        Call<LoginReponse> loginReponseCall = ApiClient.getService().loginUtilisateur(loginRequest);
+
+        loginReponseCall.enqueue(new Callback<LoginReponse>() {
+            @Override
+            public void onResponse(Call<LoginReponse> call, Response<LoginReponse> response) {
+                if(response.isSuccessful()){
+                    LoginReponse loginReponse = response.body();
+
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class).putExtra("data", loginReponse));
+                }else{
+                    String messageErreur = "Un erreur s'est produit, veuillez réessayer plus tard!";
+                    Toast.makeText(LoginActivity.this, messageErreur, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginReponse> call, Throwable t) {
+                String messageFailure = t.getLocalizedMessage();
+                Toast.makeText(LoginActivity.this, messageFailure, Toast.LENGTH_LONG).show();
             }
         });
     }
