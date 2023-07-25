@@ -4,7 +4,6 @@ public class RegisterRequest {
     private String nom;
     private String prenom;
     private String email;
-
     private String password;
 
     public String getNom() {
@@ -19,8 +18,10 @@ public class RegisterRequest {
         return prenom;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setPrenom(String nom) {
+        String[] names = nom.split(" ");
+        String firstName = names[names.length - 1];
+        this.prenom = firstName;
     }
 
     public String getEmail() {
