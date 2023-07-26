@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     LoginReponse loginReponse = response.body();
 
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class).putExtra("data", loginReponse));
+                    startActivity(new Intent(LoginActivity.this,HomeActivity.class).putExtra("data", loginReponse));
                 }else{
                     String messageErreur = "Un erreur s'est produit, veuillez réessayer plus tard!";
                     Toast.makeText(LoginActivity.this, messageErreur, Toast.LENGTH_LONG).show();
