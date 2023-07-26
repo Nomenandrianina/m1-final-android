@@ -45,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
                     LoginRequest loginRequest = new LoginRequest();
                     loginRequest.setEmail(inputEmail.getText().toString());
                     loginRequest.setPassword(inputPassword.getText().toString());
+
+                    loginUtilisateur(loginRequest);
                 }
             }
         });
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginReponse loginReponse = response.body();
 
                     startActivity(new Intent(LoginActivity.this,HomeActivity.class).putExtra("data", loginReponse));
+                    finish();
                 }else{
                     String messageErreur = "Un erreur s'est produit, veuillez réessayer plus tard!";
                     Toast.makeText(LoginActivity.this, messageErreur, Toast.LENGTH_LONG).show();
