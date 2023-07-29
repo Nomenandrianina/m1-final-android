@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#03A9F4"
+    android:id="@+id/Toolbar">
+
+
+    <ImageView
+        android:id="@+id/icon_image"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/logo" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/icon_image"
+        android:background="@drawable/search"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Rechercher..."
+        android:textAppearance="@color/white"
+        android:imeOptions="actionSearch"
+        android:queryBackground="@android:color/white"
+        android:closeIcon="@drawable/ic_close"
+        />
+
+
+</RelativeLayout>

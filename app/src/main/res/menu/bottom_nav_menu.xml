@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Prés de moi" android:icon="@drawable/ic_option1" android:id="@+id/near"/>
+    <item android:title="Circuits" android:icon="@drawable/ic_option2" android:id="@+id/circuit"/>
+    <item android:title="Réglage" android:icon="@drawable/ic_settings" android:id="@+id/setting"/>
+</menu>

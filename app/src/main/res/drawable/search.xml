@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <solid android:color="#80FFFFFF"/>-->
+<!--    <stroke android:color="#80FFFFFF"/>-->
+<!--    <stroke android:width="3dp"/>-->
+<!--    <corners android:radius="50dp" />-->
+<!--</shape>-->
+
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#C6CDF6"/>
-    <stroke android:color="#C6CDF6"/>
-    <stroke android:width="3dp"/>
-    <corners android:radius="50dp" />
+<solid android:color="#80FFFFFF" /> <!-- Couleur de fond du champ de recherche -->
+<corners android:radius="40dp" /> <!-- Rayon des coins pour ajouter des bords arrondis -->
+<stroke
+    android:color="#80FFFFFF"
+    android:width="1dp" />
 </shape>

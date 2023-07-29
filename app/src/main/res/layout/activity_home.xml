@@ -4,57 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".HomeActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_margin="20dp" >
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+        <!-- Utilisez le namespace app pour Toolbar -->
+        <include
+            android:id="@+id/appBar"
+            layout="@layout/appbar"></include>
 
-        <EditText
-            android:id="@+id/inputSearch"
-            android:layout_width="250dp"
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBar">
+
+        </FrameLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textFilter"
-            android:hint="Recherche"
-            android:textColorHint="#686666"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/search_icon"
-            android:drawablePadding="10dp"
-            android:background="@drawable/search"
-            android:padding="20dp" />
-        <ImageView
-            android:id="@+id/notification"
-            android:layout_width="40dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/notification"
-            />
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/avatar"
-            />
-
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="166dp"
-        android:layout_height="76dp" />
-
-    </LinearLayout>
-
+            android:background="#03A9F4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
