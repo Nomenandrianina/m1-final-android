@@ -19,14 +19,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //masque l'action bar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
 
         logo = findViewById(R.id.image_logo);
-        logo.animate().alpha(1).setDuration(0);
+         logo.animate().alpha(1).setDuration(0);
 
          handler = new Handler();
          handler.postDelayed(new Runnable() {
