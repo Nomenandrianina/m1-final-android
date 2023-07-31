@@ -23,9 +23,6 @@ public class HomeActivity extends AppCompatActivity {
     LoginReponse loginReponse;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -32,7 +32,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="Email address"
+            android:hint="nomenandrianinaantonio@gmail.com"
             android:textColorHint="#686666"
             android:textColor="@color/black"
             android:layout_gravity="center"
@@ -71,7 +71,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Créer un compte?"
                 android:textColor="#0D4BA8"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:hint="1234"/>
 
             <TextView
                 android:id="@+id/linkMotPasseOublie"

@@ -1,5 +1,6 @@
 package com.example.m1_final_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,10 @@ public class SettingFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private String[] parametres = {"Localisation", "Compte", "Langue"};
+    private int[] images = {R.drawable.localisation, R.drawable.compte, R.drawable.langue};
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,6 +67,35 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        ListView listViewParametres = view.findViewById(R.id.listViewsetting);
+        ParametresAdapter adapter = new ParametresAdapter(requireContext(),parametres, images);
+        listViewParametres.setAdapter(adapter);
+
+        listViewParametres.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Gérer la redirection vers les pages correspondantes ici
+                // Par exemple, ouvrir une nouvelle activité pour chaque paramètre :
+                switch (position) {
+                    case 0: // Localisation
+                        //startActivity(new Intent(ParametresActivity.this, LocalisationActivity.class));
+                        break;
+                    case 1: // Compte
+                        //startActivity(new Intent(ParametresActivity.this, CompteActivity.class));
+                        break;
+                    case 2: // Langue
+                        //startActivity(new Intent(ParametresActivity.this, LangueActivity.class));
+                        break;
+                    default:
+                        Toast.makeText(getContext(), "Paramètre non implémenté.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+
+        return view;
     }
 }

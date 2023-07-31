@@ -34,7 +34,7 @@ public class SettingsListAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_setting, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.imageView = convertView.findViewById(R.id.imageViewsetting);
+            viewHolder.imageView = convertView.findViewById(R.id.imageViewParametre);
             viewHolder.textView = convertView.findViewById(R.id.textViewSetting);
             convertView.setTag(viewHolder);
         } else {

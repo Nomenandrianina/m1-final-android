@@ -20,7 +20,7 @@ public class Parametres extends AppCompatActivity {
 
         ListView listViewParametres = findViewById(R.id.listViewParametres);
 
-            ParametresAdapter adapter = new ParametresAdapter(this,parametres, images);
+        ParametresAdapter adapter = new ParametresAdapter(this,parametres, images);
         listViewParametres.setAdapter(adapter);
 
         listViewParametres.setOnItemClickListener(new AdapterView.OnItemClickListener() {
