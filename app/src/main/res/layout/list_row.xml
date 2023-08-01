@@ -33,4 +33,12 @@
         android:singleLine="true"
         android:text="subTitle" />
 
+    <ImageView
+        android:id="@+id/imageDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_detail"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="20dp"/>
+
 </RelativeLayout>

@@ -8,6 +8,10 @@ public class AttractionMedia {
     @SerializedName("Attraction")
     private Attraction attraction;
 
+
+    @SerializedName("Etape")
+    private Etape etape;
+
     @SerializedName("background")
     private String background;
 
@@ -18,9 +22,10 @@ public class AttractionMedia {
     private String mediaPath;
 
 
-    public AttractionMedia(String id, Attraction attraction, String background, String mediaType, String mediaPath) {
+    public AttractionMedia(String id, Attraction attraction, Etape etape, String background, String mediaType, String mediaPath) {
         this.id = id;
         this.attraction = attraction;
+        this.etape = etape;
         this.background = background;
         this.mediaType = mediaType;
         this.mediaPath = mediaPath;
@@ -43,6 +48,9 @@ public class AttractionMedia {
     public void setAttraction(Attraction attraction) {
         this.attraction = attraction;
     }
+    public Etape getEtape() {return etape;}
+
+    public void setEtape(Etape etape) {this.etape = etape;}
 
     public String getBackground() {
         return background;

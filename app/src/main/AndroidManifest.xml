@@ -18,6 +18,9 @@
             android:name=".Compte"
             android:exported="false" />
         <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Parametres"
             android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Parametre" -->

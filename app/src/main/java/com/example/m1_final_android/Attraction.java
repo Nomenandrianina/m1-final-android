@@ -1,10 +1,17 @@
 package com.example.m1_final_android;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Attraction {
 
+    @SerializedName("_id")
     private String id;
+    @SerializedName("type")
     private String type;
+    @SerializedName("localisation")
     private String localisation;
+
+    @SerializedName("html_content")
     private String html_content;
 
     public Attraction(String id, String type, String localisation, String html) {

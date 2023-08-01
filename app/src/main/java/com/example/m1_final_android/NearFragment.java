@@ -1,9 +1,11 @@
 package com.example.m1_final_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,6 +89,7 @@ public class NearFragment extends Fragment implements OnSearchListener {
         attractionService = ApiClient.getServiceAttraction();
         loadDataAttractionMedia();
 
+
         return rootView;
     }
 
@@ -113,10 +116,13 @@ public class NearFragment extends Fragment implements OnSearchListener {
                     attractionMediaAdapter = new AttractionMediaAdpater(requireContext(), R.layout.list_row, listAttractionMedia);
                     listView.setAdapter(attractionMediaAdapter);
 
+                    Log.e("API LOG", "Liste des attractions Medias :"+ listAttractionMedia);
+
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             AttractionMedia selectedItem = (AttractionMedia) parent.getItemAtPosition(position);
+                            Log.e("API LOG", "Selected Item :"+ selectedItem.getAttraction().getId());
                             // Handle the item click here (e.g., show detail activity)
                             openDetailActivity(selectedItem);
                         }
@@ -138,7 +144,27 @@ public class NearFragment extends Fragment implements OnSearchListener {
 
 
     private void openDetailActivity(AttractionMedia attractionMedia){
+        Call<ArrayList<AttractionEtape>> dataAttractionEtape = attractionService.getAttractionById(attractionMedia.getAttraction().getId());
+        dataAttractionEtape.enqueue(new Callback<ArrayList<AttractionEtape>>() {
+            @Override
+            public void onResponse(Call<ArrayList<AttractionEtape>> call, Response<ArrayList<AttractionEtape>> response) {
+                if (response.isSuccessful()){
+                    // Récupérez les données renvoyées par le serveur
+                    ArrayList<AttractionEtape> attractionEtapeResponse = response.body();
+                    Log.e("API", "Parcelable response."+ attractionEtapeResponse.get(0).getMedia());
+                    Intent intent = new Intent(requireContext(), DetailActivity.class);
+                    intent.putParcelableArrayListExtra("attractionEtapes",  attractionEtapeResponse);
+                    startActivity(intent);
+                }else {
+                    Log.e("API Error", "Erreur lors de la récupération des données.");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ArrayList<AttractionEtape>> call, Throwable t) {
+                Log.e("API Error", "Erreur lors de l'appel de l'API: " + t.getMessage());
+            }
+        });
     }
 
     @Override
