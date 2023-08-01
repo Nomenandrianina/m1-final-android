@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.m1_final_android.databinding.ActivityHomeBinding;
@@ -32,6 +33,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         remplaceFragment(new NearFragment());
+
+        //Intent intent = getIntent();
+        //if (intent != null) {
+        //    loginReponse = (LoginReponse)intent.getSerializableExtra("data");
+          //  Log.e("data","loginReponse "+ loginReponse.getNom());
+       // }
 
         // Accéder au SearchView
         SearchView searchView = findViewById(R.id.searchView);

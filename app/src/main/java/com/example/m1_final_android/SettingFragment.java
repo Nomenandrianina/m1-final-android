@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,10 +82,15 @@ public class SettingFragment extends Fragment {
                 // Par exemple, ouvrir une nouvelle activité pour chaque paramètre :
                 switch (position) {
                     case 0: // Localisation
-                        //startActivity(new Intent(ParametresActivity.this, LocalisationActivity.class));
+
                         break;
                     case 1: // Compte
-                        //startActivity(new Intent(ParametresActivity.this, CompteActivity.class));
+                        // ouverture du fragment compte
+                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_parametre, new Account());
+                        fragmentTransaction.addToBackStack(null); // Add to back stack, so user can navigate back
+                        fragmentTransaction.commit();
                         break;
                     case 2: // Langue
                         //startActivity(new Intent(ParametresActivity.this, LangueActivity.class));
@@ -94,7 +101,6 @@ public class SettingFragment extends Fragment {
                 }
             }
         });
-
 
         return view;
     }
