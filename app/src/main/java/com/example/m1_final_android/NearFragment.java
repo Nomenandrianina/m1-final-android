@@ -13,7 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -35,6 +40,8 @@ public class NearFragment extends Fragment implements OnSearchListener {
     private static final String NO_RESULTS_TEXT = "Aucun élément trouvé";
 
     ListView listView;
+
+    private ProgressBar progressBar;
     AttractionService attractionService;
 
     ArrayList<AttractionMedia> listAttractionMedia = new ArrayList<>();
@@ -85,6 +92,7 @@ public class NearFragment extends Fragment implements OnSearchListener {
 
         // Récupérez votre ListView à partir du layout du fragment_near.xml
         listView = rootView.findViewById(R.id.listView);
+        progressBar = rootView.findViewById(R.id.progressBarFragment);
 
         attractionService = ApiClient.getServiceAttraction();
         loadDataAttractionMedia();
@@ -122,7 +130,8 @@ public class NearFragment extends Fragment implements OnSearchListener {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             AttractionMedia selectedItem = (AttractionMedia) parent.getItemAtPosition(position);
-                            Log.e("API LOG", "Selected Item :"+ selectedItem.getAttraction().getId());
+
+                            progressBar.setVisibility(View.VISIBLE);
                             // Handle the item click here (e.g., show detail activity)
                             openDetailActivity(selectedItem);
                         }
@@ -149,20 +158,32 @@ public class NearFragment extends Fragment implements OnSearchListener {
             @Override
             public void onResponse(Call<ArrayList<AttractionEtape>> call, Response<ArrayList<AttractionEtape>> response) {
                 if (response.isSuccessful()){
+                    progressBar.setVisibility(View.INVISIBLE);
+
                     // Récupérez les données renvoyées par le serveur
                     ArrayList<AttractionEtape> attractionEtapeResponse = response.body();
-                    Log.e("API", "Parcelable response."+ attractionEtapeResponse.get(0).getMedia());
+
                     Intent intent = new Intent(requireContext(), DetailActivity.class);
                     intent.putParcelableArrayListExtra("attractionEtapes",  attractionEtapeResponse);
                     startActivity(intent);
                 }else {
-                    Log.e("API Error", "Erreur lors de la récupération des données.");
+                    progressBar.setVisibility(View.INVISIBLE);
+                    try {
+                        String message = response.body().toString();
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Log.e("API Error", "Erreur lors de la récupération du message d'erreur.", e);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<AttractionEtape>> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(requireContext(), "Il n\\'y a pas encore de détail pour cette site", Toast.LENGTH_LONG).show();
                 Log.e("API Error", "Erreur lors de l'appel de l'API: " + t.getMessage());
+                t.printStackTrace();
             }
         });
     }

@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView noAccount = findViewById(R.id.linkCreerCompte);
         TextView ForgotPass = findViewById(R.id.linkMotPasseOublie);
         Button btnLogin = findViewById(R.id.btnLogin);
+        progressBar = findViewById(R.id.progressBar);
 
         noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,9 +46,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(inputEmail.getText().toString()) || TextUtils.isEmpty(inputPassword.getText().toString())){
+                    progressBar.setVisibility(view.VISIBLE);
                     String messageRequired = "Veuillez remplir tous les champs.";
                     Toast.makeText(LoginActivity.this,messageRequired, Toast.LENGTH_SHORT).show();
                 }else{
+                    progressBar.setVisibility(View.VISIBLE);
                     LoginRequest loginRequest = new LoginRequest();
                     //inputEmail.getText().toString() inputPassword.getText().toString(),
                     loginRequest.setEmail("nomenandrianinaantonio@gmail.com");
@@ -77,7 +82,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     startActivity(new Intent(LoginActivity.this,HomeActivity.class).putExtra("data", loginReponse));
                     finish();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }else{
+                    progressBar.setVisibility(View.INVISIBLE);
                     String messageErreur = "Un erreur s'est produit, veuillez réessayer plus tard!";
                     Toast.makeText(LoginActivity.this, messageErreur, Toast.LENGTH_LONG).show();
                 }
@@ -85,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginReponse> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
                 String messageFailure = t.getLocalizedMessage();
                 Toast.makeText(LoginActivity.this, messageFailure, Toast.LENGTH_LONG).show();
             }
