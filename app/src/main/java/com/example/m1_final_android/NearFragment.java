@@ -102,6 +102,7 @@ public class NearFragment extends Fragment implements OnSearchListener {
     }
 
     public void loadDataAttractionMedia(){
+        progressBar.setVisibility(View.VISIBLE);
         // Appelez la méthode pour obtenir les attractions avec background 1
         Call<ArrayList<AttractionMedia>> dataAttraction = attractionService.getAttractionWithBackgroundOne();
 
@@ -123,8 +124,7 @@ public class NearFragment extends Fragment implements OnSearchListener {
                     // Créez l'adapter pour afficher les données dans la ListView
                     attractionMediaAdapter = new AttractionMediaAdpater(requireContext(), R.layout.list_row, listAttractionMedia);
                     listView.setAdapter(attractionMediaAdapter);
-
-                    Log.e("API LOG", "Liste des attractions Medias :"+ listAttractionMedia);
+                    progressBar.setVisibility(View.GONE);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -144,6 +144,7 @@ public class NearFragment extends Fragment implements OnSearchListener {
 
             @Override
             public void onFailure(Call<ArrayList<AttractionMedia>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("API Error", "Erreur lors de l'appel de l'API: " + t.getMessage());
             }
         });

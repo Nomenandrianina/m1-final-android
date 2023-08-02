@@ -1,6 +1,9 @@
 package com.example.m1_final_android;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import java.util.ArrayList;
 
@@ -37,9 +48,15 @@ public class AttractionMediaAdpater extends ArrayAdapter<AttractionMedia> {
 
         String imageName = getItem(position).getMediaPath();
 
-        int resourceId = mcontext.getResources().getIdentifier(imageName, "drawable", mcontext.getPackageName());
+//        int resourceId = mcontext.getResources().getIdentifier(imageName, "drawable", mcontext.getPackageName());
+//
+//        imageView.setImageResource(resourceId);
 
-        imageView.setImageResource(resourceId);
+        byte[] decodedImage = Base64.decode(imageName, Base64.DEFAULT);
+        Glide.with(mcontext)
+                .load(decodedImage)
+                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(50, 10)))
+                .into(imageView);
 
         txtType.setText(getItem(position).getAttraction().getType());
 

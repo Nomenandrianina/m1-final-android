@@ -1,6 +1,7 @@
 package com.example.m1_final_android;
 
 import android.content.Context;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -46,14 +49,19 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
         // Charger l'image et définir les détails dans les TextViews
         // Vous pouvez utiliser les mêmes méthodes pour charger l'image que vous avez utilisées précédemment
         String imageName = attractionEtape.getMedia().get(0).getMediaPath();
-        int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+//        int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+//
+//        if (resourceId != 0) {
+//            // Affichez l'image dans ImageView
+//            imageDetailList.setImageResource(resourceId);
+//        } else {
+//            // Vous pouvez définir une image par défaut ici
+//        }
 
-        if (resourceId != 0) {
-            // Affichez l'image dans ImageView
-            imageDetailList.setImageResource(resourceId);
-        } else {
-            // Vous pouvez définir une image par défaut ici
-        }
+        byte[] decodedImage = Base64.decode(imageName, Base64.DEFAULT);
+        Glide.with(context)
+                .load(decodedImage)
+                .into(imageDetailList);
 
         txtDetailName.setText(attractionEtape.getNom());
         txtDetailEtape.setText(String.valueOf(attractionEtape.getNumero()) + " étape(s)");

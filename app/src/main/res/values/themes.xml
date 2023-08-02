@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme.NoActionBar.Fullscreen" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme" parent="AppTheme.NoActionBar.Fullscreen">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:color">@color/material_dynamic_secondary0</item>
