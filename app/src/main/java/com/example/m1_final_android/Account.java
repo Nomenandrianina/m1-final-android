@@ -13,27 +13,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Account#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Account extends Fragment {
+public class Account extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    private UtilisateurService utilisateurservice;
+
     private String mParam1;
     private String mParam2;
     public TextView nom;
     public TextView prenom;
+    public TextInputEditText nom_valeur;
+    public TextInputEditText prenom_valeur;
+    public TextInputEditText email_valeur;
+
+
 
     public static final int timer = 2000;
     RelativeLayout button_update;
@@ -71,6 +84,34 @@ public class Account extends Fragment {
         }
     }
 
+    public void updateUser(Utilisateur updatedUser) {
+        Call<Utilisateur> call = ApiClient.getService().Update_utilisateur(updatedUser);
+        call.enqueue(new Callback<Utilisateur>() {
+            @Override
+            public void onResponse(Call<Utilisateur> call, Response<Utilisateur> response) {
+                if (response.isSuccessful()) {
+                    Utilisateur updatedUser = response.body();
+                    ReloadFragment();
+                   // callback.onUpdateSuccess(updatedUser);
+                } else {
+                    Toast.makeText(getContext(), "messageFailure", Toast.LENGTH_LONG).show();
+                    // callback.onUpdateFailed("Update failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Utilisateur> call, Throwable t) {
+                String messageFailure = t.getLocalizedMessage();
+                Toast.makeText(getContext(), messageFailure, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public interface UpdateUserCallback {
+        void onUpdateSuccess(Utilisateur updatedUser);
+        void onUpdateFailed(String errorMessage);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,10 +132,16 @@ public class Account extends Fragment {
             nom.setText(loginResponse.getNom());
             prenom = view.findViewById(R.id.prenom);
             prenom.setText(loginResponse.getPrenom());
+
+            nom_valeur = view.findViewById(R.id.nom_value);
+            nom_valeur.setText(loginResponse.getNom());
+
+            prenom_valeur = view.findViewById(R.id.prenom_value);
+            prenom_valeur.setText(loginResponse.getPrenom());
+
+            email_valeur = view.findViewById(R.id.email_value);
+            email_valeur.setText(loginResponse.getEmail());
         }
-
-
-
 
         button_update = view.findViewById(R.id.button_update);
         buttonText = view.findViewById(R.id.button_text);
@@ -106,10 +153,25 @@ public class Account extends Fragment {
                 // Showing animation
                 buttonanimation.setVisibility(v.VISIBLE);
                 buttonanimation.playAnimation();
-
                 buttonText.setVisibility(v.GONE);
 
+                //Get id
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+                Gson gson = new Gson();
+                String loginResponseJson = sharedPreferences.getString("login_response", null);
+                LoginReponse loginResponse = gson.fromJson(loginResponseJson, LoginReponse.class);
+                String id_user = loginResponse.getId();
+
+                nom_valeur = view.findViewById(R.id.nom_value);
+                prenom_valeur = view.findViewById(R.id.prenom_value);
+                email_valeur = view.findViewById(R.id.email_value);
+                Utilisateur update_value= new Utilisateur(loginResponse.getId(),nom_valeur.getText().toString(),prenom_valeur.getText().toString(),email_valeur.getText().toString());
+                updateUser(update_value);
+
                 new Handler().postDelayed(this::resetButton, timer);
+
+
             }
 
             private void resetButton() {
@@ -119,5 +181,15 @@ public class Account extends Fragment {
             }
         });
         return view;
+    }
+
+    // Fonction qui recharge dans la même page
+    private void ReloadFragment() {
+        // Reload the fragment
+        getParentFragmentManager()
+                .beginTransaction()
+                .detach(this)
+                .attach(this)
+                .commit();
     }
 }

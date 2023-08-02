@@ -12,5 +12,7 @@ public interface UtilisateurService {
     @POST("signup")
     Call<RegisterReponse> registerUtilisateur(@Body RegisterRequest registerRequest);
 
+    @POST("update_utilisateur")
+    Call<Utilisateur> Update_utilisateur(@Body Utilisateur registerRequest);
 
 }

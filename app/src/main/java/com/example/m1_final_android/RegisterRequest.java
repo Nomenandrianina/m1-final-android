@@ -6,6 +6,14 @@ public class RegisterRequest {
     private String email;
     private String password;
 
+    public RegisterRequest(){}
+    public RegisterRequest(String nom, String prenom, String email, String password) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.password = password;
+    }
+
     public String getNom() {
         return nom;
     }

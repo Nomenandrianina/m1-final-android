@@ -4,7 +4,6 @@ import java.util.List;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,5 +58,8 @@ public class SettingsListAdapter {
     static class ViewHolder {
         ImageView imageView;
         TextView textView;
+    }
+
+    public static class Utilisateur {
     }
 }

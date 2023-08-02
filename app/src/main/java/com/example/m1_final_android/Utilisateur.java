@@ -1,15 +1,18 @@
 package com.example.m1_final_android;
 
-import java.io.Serializable;
-
-public class LoginReponse implements Serializable {
-
+public class Utilisateur {
     private String id;
     private String nom;
     private String prenom;
     private String email;
     private String password;
-    private String token;
+
+    public Utilisateur(String id, String nom, String prenom, String email) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+    }
 
     public String getId() {
         return id;
@@ -50,14 +53,4 @@ public class LoginReponse implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-
 }
