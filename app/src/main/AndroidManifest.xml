@@ -14,6 +14,22 @@
         android:theme="@style/AppTheme.NoActionBar.Fullscreen"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.m1_final_android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <!-- Attributs de configuration du FileProvider -->
+            <!-- Assurez-vous que les attributs sont définis correctement et correspondent à votre application -->
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+
+        </provider>
+
         <activity
             android:name=".Compte"
             android:exported="false" />

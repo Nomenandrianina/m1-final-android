@@ -5,9 +5,10 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AttractionEtape implements Parcelable {
+public class AttractionEtape implements Serializable,Parcelable {
     private String _id;
     private String Attraction;
     private String nom;

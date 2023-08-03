@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AttractionSerialize implements Parcelable {
+import java.io.Serializable;
+
+public class AttractionSerialize implements Serializable,Parcelable {
     @SerializedName("_id")
     private String id;
 

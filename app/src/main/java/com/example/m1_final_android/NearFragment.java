@@ -1,8 +1,10 @@
 package com.example.m1_final_android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.os.Parcelable;
@@ -18,7 +20,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -150,6 +155,17 @@ public class NearFragment extends Fragment implements OnSearchListener {
         });
     }
 
+    private void saveDataToFile(ArrayList<AttractionEtape> attractionEtapes) {
+        try {
+            FileOutputStream fos = requireContext().openFileOutput("data.txt", Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(attractionEtapes);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
@@ -163,9 +179,11 @@ public class NearFragment extends Fragment implements OnSearchListener {
 
                     // Récupérez les données renvoyées par le serveur
                     ArrayList<AttractionEtape> attractionEtapeResponse = response.body();
+                    saveDataToFile(attractionEtapeResponse);
 
                     Intent intent = new Intent(requireContext(), DetailActivity.class);
-                    intent.putParcelableArrayListExtra("attractionEtapes",  attractionEtapeResponse);
+//                    intent.putParcelableArrayListExtra("attractionEtapes",  attractionEtapeResponse);
+                    intent.putExtra("dataUri", FileProvider.getUriForFile(requireContext(), "com.example.m1_final_android.fileprovider", new File(requireContext().getFilesDir(), "data.txt")));
                     startActivity(intent);
                 }else {
                     progressBar.setVisibility(View.INVISIBLE);
