@@ -61,5 +61,25 @@
                     android:layout_below="@+id/imageDetailList"
                     android:text="Description"/>
 
+                <ImageButton
+                    android:id="@+id/btnLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_below="@+id/txtDetailDescription"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_like"></ImageButton>
+
+                <TextView
+                    android:id="@+id/txtLikesCount"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/txtDetailDescription"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/btnLike"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
     </RelativeLayout>
 </LinearLayout>

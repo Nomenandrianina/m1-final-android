@@ -16,6 +16,8 @@ public class AttractionEtape implements Serializable,Parcelable {
     private int duree;
     private String unit;
     private String description;
+
+    private int like_count;
     private List<AttractionSerialize> media;
 
     protected AttractionEtape(Parcel in) {
@@ -26,6 +28,7 @@ public class AttractionEtape implements Serializable,Parcelable {
         duree = in.readInt();
         unit = in.readString();
         description = in.readString();
+        like_count = in.readInt();
         media = in.createTypedArrayList(AttractionSerialize.CREATOR);
     }
 
@@ -93,8 +96,16 @@ public class AttractionEtape implements Serializable,Parcelable {
         return description;
     }
 
+    public int getLikesCount() {
+        return like_count;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.like_count = likesCount;
     }
 
     public List<AttractionSerialize> getMedia() {
@@ -110,6 +121,11 @@ public class AttractionEtape implements Serializable,Parcelable {
         return 0;
     }
 
+    public void incrementLikesCount() {
+        like_count++;
+    }
+
+
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(_id);
@@ -119,6 +135,7 @@ public class AttractionEtape implements Serializable,Parcelable {
         parcel.writeInt(duree);
         parcel.writeString(unit);
         parcel.writeString(description);
+        parcel.writeInt(like_count);
         parcel.writeTypedList(media);
     }
 }
