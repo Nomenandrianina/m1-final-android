@@ -1,6 +1,11 @@
 package com.example.m1_final_android;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.bumptech.glide.Glide;
 
@@ -113,6 +119,7 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
                     // Mise à jour réussie, vous pouvez effectuer des actions supplémentaires si nécessaire.
                     String messageConfrome = "Update réussie";
                     Toast.makeText(context, messageConfrome, Toast.LENGTH_LONG).show();
+                    showNotification(context, "Vous avez aimé cette étape !");
                 } else {
                     // Gestion des erreurs de la réponse du serveur.
                 }
@@ -123,4 +130,24 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
             }
         });
     }
+
+    private void showNotification(Context context,String message) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Pour les versions Android 8.0 (Oreo) et supérieures, vous devez créer un canal de notification.
+            NotificationChannel channel = new NotificationChannel("channel_id", "Channel Name", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_id")
+                .setSmallIcon(R.drawable.ic_notification) // L'icône de la notification
+                .setContentTitle("Nouveau j'aime !") // Titre de la notification
+                .setContentText(message) // Contenu de la notification
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Afficher la notification
+        notificationManager.notify(0, builder.build());
+    }
+
 }
