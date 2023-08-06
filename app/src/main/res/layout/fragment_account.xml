@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Account">
+    tools:context=".Account"
+    android:id="@+id/fragment_account_id">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +69,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nom_value"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:drawablePadding="10dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -82,7 +83,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/prenom_value"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:drawablePadding="10dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +97,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_value"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:drawablePadding="10dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>

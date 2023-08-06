@@ -10,7 +10,6 @@ public class Attraction {
     private String type;
     @SerializedName("localisation")
     private String localisation;
-
     @SerializedName("html_content")
     private String html_content;
 

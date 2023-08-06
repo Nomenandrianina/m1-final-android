@@ -1,6 +1,9 @@
 package com.example.m1_final_android;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 /**
@@ -26,10 +30,10 @@ public class SettingFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String[] parametres = {"Localisation", "Compte", "Langue"};
-    private int[] images = {R.drawable.localisation, R.drawable.compte, R.drawable.langue};
+    private String[] parametres = {"Localisation", "Compte", "Langue","Deconnexion"};
+    private int[] images = {R.drawable.localisation, R.drawable.compte, R.drawable.langue,R.drawable.deconnexion};
 
-
+    private ProgressBar loader;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -92,8 +96,15 @@ public class SettingFragment extends Fragment {
                         fragmentTransaction.addToBackStack(null); // Add to back stack, so user can navigate back
                         fragmentTransaction.commit();
                         break;
-                    case 2: // Langue
+                    case 2:
                         //startActivity(new Intent(ParametresActivity.this, LangueActivity.class));
+                        break;
+                    case 3:
+
+                        loader = view.findViewById(R.id.progressBar_logoutr);
+                        loader.setVisibility(View.VISIBLE);
+
+                        handleLogout();
                         break;
                     default:
                         Toast.makeText(getContext(), "Paramètre non implémenté.", Toast.LENGTH_SHORT).show();
@@ -103,5 +114,18 @@ public class SettingFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void handleLogout() {
+        if (getActivity() != null) {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
 }

@@ -22,7 +22,7 @@ public class ApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://doubtful-tick-cowboy-boots.cyclic.app/")
+                .baseUrl("http://192.168.0.108:4000/")
                 .client(okHttpClient)
                 .build();
 
@@ -37,7 +37,11 @@ public class ApiClient {
 
     public static AttractionService getServiceAttraction(){
         AttractionService attractionService = getRetrofit().create(AttractionService.class);
-
         return attractionService;
+    }
+
+    public static NotificationService getServiceNotification(){
+        NotificationService notificationService = getRetrofit().create(NotificationService.class);
+        return notificationService;
     }
 }

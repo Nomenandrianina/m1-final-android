@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Vous pouvez personnaliser le style du cadre ici -->
+    <stroke
+        android:width="2dp"
+        android:color="@android:color/darker_gray" />
+    <corners android:radius="8dp" />
+</shape>

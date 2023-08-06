@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.util.Log;
@@ -91,6 +92,8 @@ public class Account extends Fragment{
             public void onResponse(Call<Utilisateur> call, Response<Utilisateur> response) {
                 if (response.isSuccessful()) {
                     Utilisateur updatedUser = response.body();
+                    Toast.makeText(getContext(), "Information renouveller", Toast.LENGTH_LONG).show();
+
                     ReloadFragment();
                    // callback.onUpdateSuccess(updatedUser);
                 } else {
@@ -163,15 +166,14 @@ public class Account extends Fragment{
                 LoginReponse loginResponse = gson.fromJson(loginResponseJson, LoginReponse.class);
                 String id_user = loginResponse.getId();
 
-                nom_valeur = view.findViewById(R.id.nom_value);
-                prenom_valeur = view.findViewById(R.id.prenom_value);
-                email_valeur = view.findViewById(R.id.email_value);
-                Utilisateur update_value= new Utilisateur(loginResponse.getId(),nom_valeur.getText().toString(),prenom_valeur.getText().toString(),email_valeur.getText().toString());
-                updateUser(update_value);
+
+                //nom_valeur = view.findViewById(R.id.nom_value);
+                //prenom_valeur = view.findViewById(R.id.prenom_value);
+                //email_valeur = view.findViewById(R.id.email_value);
+                //Utilisateur update_value= new Utilisateur(loginResponse.getId(),nom_valeur.getText().toString(),prenom_valeur.getText().toString(),email_valeur.getText().toString());
+                //updateUser(update_value);
 
                 new Handler().postDelayed(this::resetButton, timer);
-
-
             }
 
             private void resetButton() {
@@ -186,6 +188,8 @@ public class Account extends Fragment{
     // Fonction qui recharge dans la même page
     private void ReloadFragment() {
         // Reload the fragment
+
+
         getParentFragmentManager()
                 .beginTransaction()
                 .detach(this)

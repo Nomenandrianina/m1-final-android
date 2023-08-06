@@ -8,7 +8,6 @@ public class Etape {
     private int numero;
     private int duree;
     private String unit;
-
     private String description;
 
     public Etape(String id, Attraction attraction, int numero, int duree, String unit, String description) {

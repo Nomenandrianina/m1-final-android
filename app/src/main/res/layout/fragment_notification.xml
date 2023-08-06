@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".CircuitFragment">
+    tools:context=".NotificationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aucune notification"
-        android:textSize="26dp"
-        android:textColor="@color/black"
-        android:layout_gravity="center"/>
+    <ListView
+        android:id="@+id/listview_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        />
 
 </FrameLayout>
