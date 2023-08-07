@@ -30,8 +30,8 @@ public class SettingFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String[] parametres = {"Localisation", "Compte", "Langue","Deconnexion"};
-    private int[] images = {R.drawable.localisation, R.drawable.compte, R.drawable.langue,R.drawable.deconnexion};
+    private String[] parametres = {"Compte", "Deconnexion"};
+    private int[] images = {R.drawable.compte,R.drawable.deconnexion};
 
     private ProgressBar loader;
     // TODO: Rename and change types of parameters
@@ -85,10 +85,7 @@ public class SettingFragment extends Fragment {
                 // Gérer la redirection vers les pages correspondantes ici
                 // Par exemple, ouvrir une nouvelle activité pour chaque paramètre :
                 switch (position) {
-                    case 0: // Localisation
-
-                        break;
-                    case 1: // Compte
+                    case 0: // Compte
                         // ouverture du fragment compte
                         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -96,10 +93,7 @@ public class SettingFragment extends Fragment {
                         fragmentTransaction.addToBackStack(null); // Add to back stack, so user can navigate back
                         fragmentTransaction.commit();
                         break;
-                    case 2:
-                        //startActivity(new Intent(ParametresActivity.this, LangueActivity.class));
-                        break;
-                    case 3:
+                    case 1:
 
                         //loader = view.findViewById(R.id.progressBar_logoutr);
                        // loader.setVisibility(View.VISIBLE);

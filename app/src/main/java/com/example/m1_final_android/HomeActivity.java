@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.m1_final_android.databinding.ActivityHomeBinding;
 
@@ -29,7 +30,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
         // Accéder au SearchView
-        SearchView searchView = findViewById(R.id.searchView);
+//        SearchView searchView = findViewById(R.id.searchView);
+        SearchView searchView = binding.appBar.searchView;
 
 
         // Ajouter un listener pour gérer les événements de recherche
@@ -55,12 +57,15 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.near:
                     remplaceFragment(new NearFragment());
+                    binding.appBar.searchView.setVisibility(View.VISIBLE);
                     break;
                 case R.id.circuit:
                     remplaceFragment(new NotificationFragment());
+                    binding.appBar.searchView.setVisibility(View.GONE);
                     break;
                 case R.id.setting:
                     remplaceFragment(new SettingFragment());
+                    binding.appBar.searchView.setVisibility(View.GONE);
                     break;
             }
             return true;

@@ -41,6 +41,8 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
     private int resource;
     private ArrayList<AttractionEtape> attractionEtapes;
 
+    YouTubePlayerView youTubePlayerView;
+
     private AttractionService  attractionService;
 
     public AttractionEtapeAdapter(@NonNull Context context, int resource, @NonNull ArrayList<AttractionEtape> objects) {
@@ -62,7 +64,7 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
         attractionService = ApiClient.getServiceAttraction();
 
         ImageView imageDetailList = view.findViewById(R.id.imageDetailList);
-        YouTubePlayerView youTubePlayerView = view.findViewById(R.id.youtube_player_view);
+        youTubePlayerView = view.findViewById(R.id.youtube_player_view);
         TextView txtDetailName = view.findViewById(R.id.txtDetailName);
         TextView txtDetailEtape = view.findViewById(R.id.txtDetailEtape);
         TextView txtDetailDuree = view.findViewById(R.id.txtDetailDuree);
@@ -72,13 +74,6 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
         TextView txtLikesCount = view.findViewById(R.id.txtLikesCount);
 
         AttractionEtape attractionEtape = attractionEtapes.get(position);
-
-
-//        String imageName = attractionEtape.getMedia().get(0).getMediaPath();
-//        byte[] decodedImage = Base64.decode(imageName, Base64.DEFAULT);
-//        Glide.with(context)
-//                .load(decodedImage)
-//                .into(imageDetailList);
 
         String mediaType = attractionEtape.getMedia().get(0).getMediaType();
         String mediaPath = attractionEtape.getMedia().get(0).getMediaPath();
@@ -127,9 +122,6 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mettez en œuvre la logique pour gérer le clic sur le bouton "J'aime"
-                // Vous pouvez incrémenter le compteur de "J'aime", envoyer la mise à jour au serveur, etc.
-                // Par exemple :
                 attractionEtape.incrementLikesCount();
                 EtapeRequest etapeRequest = new EtapeRequest();
                 //inputEmail.getText().toString() inputPassword.getText().toString(),
@@ -149,6 +141,10 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
         // Extrait "Sw09MYhOVWc"
         String videoId = youtubeUrl.substring(youtubeUrl.indexOf("?v=") + 3);
         return videoId;
+    }
+
+    public void stopVideoPlayback() {
+        youTubePlayerView.release();
     }
 
     private void updateLikesCountInDatabase(EtapeRequest etapeRequest) {

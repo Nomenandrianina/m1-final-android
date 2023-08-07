@@ -50,6 +50,15 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.stopVideoPlayback();
+        }
+    }
+
+
     // Méthode pour lire les données depuis le fichier
     private ArrayList<AttractionEtape> readDataFromFile(Uri fileUri) {
         ArrayList<AttractionEtape> attractionEtapes = null;
