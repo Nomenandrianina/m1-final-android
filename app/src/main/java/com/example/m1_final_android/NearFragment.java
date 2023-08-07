@@ -118,6 +118,7 @@ public class NearFragment extends Fragment implements OnSearchListener {
                     // Récupérez les données renvoyées par le serveur
                     ArrayList<AttractionMedia> attractionMediaResponse = response.body();
 
+
                     // Remplissez votre liste d'objets Attraction à partir des données renvoyées par le serveur
                     for (AttractionMedia attractionMedia : attractionMediaResponse) {
                         listAttractionMedia.add(attractionMedia);
@@ -127,9 +128,9 @@ public class NearFragment extends Fragment implements OnSearchListener {
 
 
                     // Créez l'adapter pour afficher les données dans la ListView
-                    attractionMediaAdapter = new AttractionMediaAdpater(requireContext(), R.layout.list_row, listAttractionMedia);
-                    listView.setAdapter(attractionMediaAdapter);
-                    progressBar.setVisibility(View.GONE);
+                        attractionMediaAdapter = new AttractionMediaAdpater(requireContext(), R.layout.list_row, listAttractionMedia);
+                        listView.setAdapter(attractionMediaAdapter);
+                        progressBar.setVisibility(View.GONE);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
