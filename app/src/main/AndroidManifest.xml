@@ -27,9 +27,6 @@
             android:exported="false"
             android:grantUriPermissions="true">
 
-            <!-- Attributs de configuration du FileProvider -->
-            <!-- Assurez-vous que les attributs sont définis correctement et correspondent à votre application -->
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -44,11 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".Parametres"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".Parametre" -->
-        <!-- android:exported="false" -->
-        <!-- android:label="@string/title_activity_parametre" -->
-        <!-- android:theme="@style/Theme.M1finalandroid" /> -->
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
