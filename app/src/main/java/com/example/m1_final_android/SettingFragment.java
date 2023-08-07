@@ -30,8 +30,8 @@ public class SettingFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String[] parametres = {"Localisation", "Compte", "Langue","Deconnexion"};
-    private int[] images = {R.drawable.localisation, R.drawable.compte, R.drawable.langue,R.drawable.deconnexion};
+    private String[] parametres = {"Compte", "Deconnexion"};
+    private int[] images = {R.drawable.compte,R.drawable.deconnexion};
 
     private ProgressBar loader;
     // TODO: Rename and change types of parameters
