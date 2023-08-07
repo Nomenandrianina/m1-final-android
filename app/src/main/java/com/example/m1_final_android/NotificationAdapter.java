@@ -10,13 +10,12 @@ import android.widget.TextView;
 
 public class NotificationAdapter extends ArrayAdapter<String> {
     private final String[] titre;
-
     private final String [] details;
     private final int[] images;
 
-    public NotificationAdapter(Context context, String[] parametres,String[]details, int[] images) {
-        super(context, R.layout.list_notification, parametres);
-        this.titre = parametres;
+    public NotificationAdapter(Context context, String[] titre,String[]details, int[] images) {
+        super(context, R.layout.list_notification, titre);
+        this.titre = titre;
         this.images = images;
         this.details = details;
     }
@@ -25,7 +24,7 @@ public class NotificationAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_setting, parent, false);
+            convertView = inflater.inflate(R.layout.list_notification, parent, false);
         }
 
         ImageView imageViewParametre = convertView.findViewById(R.id.icon_notification);

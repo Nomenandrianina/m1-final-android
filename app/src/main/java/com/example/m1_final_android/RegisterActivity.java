@@ -1,7 +1,12 @@
 package com.example.m1_final_android;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.google.android.material.internal.ContextUtils.getActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -56,16 +61,25 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     public void RegisterUtilisateur(RegisterRequest registerRequest){
         Call<RegisterReponse> registerReponseCall = ApiClient.getService().registerUtilisateur(registerRequest);
+
+        //(String id,String titre,String details, String lien)
+
         registerReponseCall.enqueue(new Callback<RegisterReponse>() {
             @Override
             public void onResponse(Call<RegisterReponse> call, Response<RegisterReponse> response) {
                 if(response.isSuccessful()){
+
+                    String utilisateur= response.body().getId();
+                    String details="Creation de compte reussie, bienvenu "+registerRequest.getNom();
+                    String titre = "World tour";
+                    String lien="";
+
+                    ApiClient.getServiceNotification().Create_notification(new NotificationRequest(utilisateur,titre,details,lien));
+
                     String messageSucces = "Enregistrement réussi!";
                     Toast.makeText(RegisterActivity.this, messageSucces, Toast.LENGTH_LONG).show();
 
@@ -84,4 +98,5 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
 }

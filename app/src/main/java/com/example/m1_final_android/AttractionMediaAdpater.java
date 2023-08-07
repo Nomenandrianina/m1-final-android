@@ -28,7 +28,7 @@ public class AttractionMediaAdpater extends ArrayAdapter<AttractionMedia> {
     private Context mcontext;
     private int mressource;
 
-    public AttractionMediaAdpater(@NonNull Context context, int resource, @NonNull ArrayList<AttractionMedia> objects) {
+    public AttractionMediaAdpater(Context context, int resource, @NonNull ArrayList<AttractionMedia> objects) {
         super(context, resource, objects);
         this.mcontext = context;
         this.mressource = resource;
