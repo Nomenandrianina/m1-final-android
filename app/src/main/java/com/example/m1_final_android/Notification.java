@@ -13,7 +13,6 @@ public class Notification {
     @SerializedName("lien")
     private String lien;
 
-
     public Notification(String id, String titre, String details, String lien) {
         this.id = id;
         this.titre = titre;

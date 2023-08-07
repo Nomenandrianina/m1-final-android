@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -78,7 +82,30 @@ public class RegisterActivity extends AppCompatActivity {
                     String titre = "World tour";
                     String lien="";
 
-                    ApiClient.getServiceNotification().Create_notification(new NotificationRequest(utilisateur,titre,details,lien));
+                    Call<Notification> notificationss = ApiClient.getServiceNotification().Create_notification(new NotificationRequest(utilisateur,titre,details,lien));
+                    notificationss.enqueue(new Callback<Notification>() {
+                    @Override
+                    public void onResponse(Call<Notification> call, Response<Notification> response) {
+                       if (response.isSuccessful()) {
+                           Notification notification = response.body();
+                           System.out.println("reuissie");
+                           // Utilisez les valeurs de la notification ici
+                           String notificationId = notification.getId();
+                           String notificationTitle = notification.getTitre();
+                           // ... etc.
+                       } else {
+                           // La requête n'a pas abouti, traitez les erreurs si nécessaire
+                       }
+                    }
+                    @Override
+                    public void onFailure(Call<Notification> call, Throwable t) {
+                        // Gestion des erreurs lors de l'appel réseau
+                        System.out.println("errer"+ t.getMessage());
+                    }
+
+               });
+
+                    showNotification(getBaseContext(),"Inscription reussie");
 
                     String messageSucces = "Enregistrement réussi!";
                     Toast.makeText(RegisterActivity.this, messageSucces, Toast.LENGTH_LONG).show();
@@ -97,6 +124,25 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, messageFailure, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void showNotification(Context context, String message) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Pour les versions Android 8.0 (Oreo) et supérieures, vous devez créer un canal de notification.
+            NotificationChannel channel = new NotificationChannel("channel_id", "Channel Name", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_id")
+                .setSmallIcon(R.drawable.ic_notification) // L'icône de la notification
+                .setContentTitle("World Tour") // Titre de la notification
+                .setContentText(message) // Contenu de la notification
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Afficher la notification
+        notificationManager.notify(0, builder.build());
     }
 
 }

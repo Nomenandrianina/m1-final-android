@@ -2,9 +2,14 @@ package com.example.m1_final_android;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -52,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     LoginRequest loginRequest = new LoginRequest();
                     //inputEmail.getText().toString() inputPassword.getText().toString(),
-                    loginRequest.setEmail("nomenandrianinaantonio@gmail.com");
-                    loginRequest.setPassword("1234");
+                    loginRequest.setEmail(inputEmail.getText().toString());
+                    loginRequest.setPassword(inputPassword.getText().toString());
 
                     loginUtilisateur(loginRequest);
                 }
@@ -68,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginReponse> call, Response<LoginReponse> response) {
                 if(response.isSuccessful()){
+
                     LoginReponse loginReponse = response.body();
 
                     //Stockage des informations de l'utilisateur
@@ -79,9 +85,13 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("login_response", loginResponseJson);
                     editor.apply();
 
+                    Intent serviceIntent = new Intent(getBaseContext(), BackgroundService.class);
+                    startService(serviceIntent);
+
                     startActivity(new Intent(LoginActivity.this,HomeActivity.class).putExtra("data", loginReponse));
                     finish();
                     progressBar.setVisibility(View.INVISIBLE);
+
                 }else{
                     progressBar.setVisibility(View.INVISIBLE);
                     String messageErreur = "Un erreur s'est produit, veuillez réessayer plus tard!";
@@ -97,4 +107,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 }

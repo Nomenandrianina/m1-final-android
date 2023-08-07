@@ -102,7 +102,6 @@ public class NearFragment extends Fragment implements OnSearchListener {
         attractionService = ApiClient.getServiceAttraction();
         loadDataAttractionMedia();
 
-
         return rootView;
     }
 
@@ -125,7 +124,6 @@ public class NearFragment extends Fragment implements OnSearchListener {
                     }
 
                     fullListAttractionMedia.addAll(listAttractionMedia);
-
 
                     // Créez l'adapter pour afficher les données dans la ListView
                         attractionMediaAdapter = new AttractionMediaAdpater(requireContext(), R.layout.list_row, listAttractionMedia);

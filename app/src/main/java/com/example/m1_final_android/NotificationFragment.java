@@ -83,20 +83,50 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        showNotification(getContext(),"bonjour tout le monde");
+        //showNotification(getContext(),"bonjour tout le monde");
 
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
         ListView listViewParametres = view.findViewById(R.id.listview_notification);
 
+        //recuperation des informations de l'utilisateur
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         Gson gson = new Gson();
         String loginResponseJson = sharedPreferences.getString("login_response", null);
         LoginReponse loginResponse = gson.fromJson(loginResponseJson, LoginReponse.class);
         String id_user = loginResponse.getId();
+        System.out.println("id_user" + id_user);
+
+        String details="Creation de compte reussie, bienvenu ";
+        String titre = "World tour";
+        String lien="";
+
+        Call<Notification> notificationss = ApiClient.getServiceNotification().Create_notification(new NotificationRequest(id_user,titre,details,lien));
+        notificationss.enqueue(new Callback<Notification>() {
+            @Override
+            public void onResponse(Call<Notification> call, Response<Notification> response) {
+                if (response.isSuccessful()) {
+                    // La requête a réussi, vous pouvez obtenir la notification créée à partir de la réponse
+                    Notification notification = response.body();
+                    System.out.println("reussier");
+
+                    // Utilisez les valeurs de la notification ici
+                    String notificationId = notification.getId();
+                    String notificationTitle = notification.getTitre();
+                    // ... etc.
+                } else {
+                    // La requête n'a pas abouti, traitez les erreurs si nécessaire
+                }
+            }
+            @Override
+            public void onFailure(Call<Notification> call, Throwable t) {
+                // Gestion des erreurs lors de l'appel réseau
+                System.out.println("errer"+ t.getMessage());
+            }
+        });
 
         //Appel vers l'api pour avoir la liste des notifications de l'utilisateur
-        Call<ArrayList<Notification>> notification = ApiClient.getServiceNotification().Get_notification(id_user);
+        Call<ArrayList<Notification>> notification=ApiClient.getServiceNotification().Get_notification(id_user);
 
         notification.enqueue(new Callback<ArrayList<Notification>>() {
             @Override

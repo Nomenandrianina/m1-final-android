@@ -101,8 +101,10 @@ public class SettingFragment extends Fragment {
                         break;
                     case 3:
 
-                        loader = view.findViewById(R.id.progressBar_logoutr);
-                        loader.setVisibility(View.VISIBLE);
+                        //loader = view.findViewById(R.id.progressBar_logoutr);
+                       // loader.setVisibility(View.VISIBLE);
+                        Intent serviceIntent = new Intent(requireContext(), BackgroundService.class);
+                        requireContext().stopService(serviceIntent);
 
                         handleLogout();
                         break;
