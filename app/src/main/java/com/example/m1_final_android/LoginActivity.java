@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText inputEmail = findViewById(R.id.inputEmail);
         EditText inputPassword = findViewById(R.id.inputPassword);
         TextView noAccount = findViewById(R.id.linkCreerCompte);
-        TextView ForgotPass = findViewById(R.id.linkMotPasseOublie);
         Button btnLogin = findViewById(R.id.btnLogin);
         progressBar = findViewById(R.id.progressBar);
 

@@ -67,23 +67,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="200dp"
                 android:layout_marginTop="10dp"
                 android:text="Créer un compte?"
                 android:textColor="#0D4BA8"
                 android:textSize="15dp"
                 android:hint="1234"/>
-
-            <TextView
-                android:id="@+id/linkMotPasseOublie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="40dp"
-                android:text="Mot de passe oublié?"
-                android:textColor="#0D4BA8"
-                android:textSize="15dp" />
 
         </LinearLayout>
 
