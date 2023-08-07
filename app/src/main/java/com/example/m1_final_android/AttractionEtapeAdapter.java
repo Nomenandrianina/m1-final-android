@@ -5,6 +5,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -14,14 +15,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.bumptech.glide.Glide;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
 
@@ -56,6 +62,7 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
         attractionService = ApiClient.getServiceAttraction();
 
         ImageView imageDetailList = view.findViewById(R.id.imageDetailList);
+        YouTubePlayerView youTubePlayerView = view.findViewById(R.id.youtube_player_view);
         TextView txtDetailName = view.findViewById(R.id.txtDetailName);
         TextView txtDetailEtape = view.findViewById(R.id.txtDetailEtape);
         TextView txtDetailDuree = view.findViewById(R.id.txtDetailDuree);
@@ -66,22 +73,50 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
 
         AttractionEtape attractionEtape = attractionEtapes.get(position);
 
-        // Charger l'image et définir les détails dans les TextViews
-        // Vous pouvez utiliser les mêmes méthodes pour charger l'image que vous avez utilisées précédemment
-        String imageName = attractionEtape.getMedia().get(0).getMediaPath();
-//        int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
-//
-//        if (resourceId != 0) {
-//            // Affichez l'image dans ImageView
-//            imageDetailList.setImageResource(resourceId);
-//        } else {
-//            // Vous pouvez définir une image par défaut ici
-//        }
 
-        byte[] decodedImage = Base64.decode(imageName, Base64.DEFAULT);
-        Glide.with(context)
-                .load(decodedImage)
-                .into(imageDetailList);
+//        String imageName = attractionEtape.getMedia().get(0).getMediaPath();
+//        byte[] decodedImage = Base64.decode(imageName, Base64.DEFAULT);
+//        Glide.with(context)
+//                .load(decodedImage)
+//                .into(imageDetailList);
+
+        String mediaType = attractionEtape.getMedia().get(0).getMediaType();
+        String mediaPath = attractionEtape.getMedia().get(0).getMediaPath();
+
+
+        if (mediaType.equals("image")) {
+
+            // Afficher l'image dans ImageView
+            byte[] decodedImage = Base64.decode(mediaPath, Base64.DEFAULT);
+            Glide.with(context)
+                    .load(decodedImage)
+                    .into(imageDetailList);
+            // Cacher le YouTubePlayerView
+            youTubePlayerView.setVisibility(View.GONE);
+        } else if (mediaType.equals("video")) {
+            // Cacher l'ImageView
+            imageDetailList.setVisibility(View.GONE);
+            txtDetailEtape.setVisibility(View.GONE);
+            txtDetailDuree.setVisibility(View.GONE);
+            imageDetailList.setVisibility(View.GONE);
+
+            // Afficher la vidéo dans YouTubePlayerView
+            String VideoId = extractYouTubeVideoIdFromUrl(mediaPath); // Méthode pour extraire l'identifiant YouTube à partir du lien
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer youTubePlayer) {
+                    // Charger la vidéo à l'aide de l'ID vidéo YouTube
+                    youTubePlayer.loadVideo(VideoId, 0f);
+                }
+            });
+            youTubePlayerView.setVisibility(View.VISIBLE);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.addRule(RelativeLayout.BELOW, R.id.txtDetailName);
+            txtDetailDescription.setLayoutParams(params);
+        }
 
         txtDetailName.setText(attractionEtape.getNom());
         txtDetailEtape.setText(String.valueOf(attractionEtape.getNumero()) + " étape(s)");
@@ -107,6 +142,13 @@ public class AttractionEtapeAdapter extends ArrayAdapter<AttractionEtape> {
 
 
         return view;
+    }
+
+    private String extractYouTubeVideoIdFromUrl(String youtubeUrl) {
+        // Exemple: "https://www.youtube.com/watch?v=Sw09MYhOVWc"
+        // Extrait "Sw09MYhOVWc"
+        String videoId = youtubeUrl.substring(youtubeUrl.indexOf("?v=") + 3);
+        return videoId;
     }
 
     private void updateLikesCountInDatabase(EtapeRequest etapeRequest) {

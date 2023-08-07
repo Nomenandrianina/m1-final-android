@@ -9,11 +9,19 @@
         android:layout_below="@+id/LinearLayout">
 
 
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            />
+
+
                 <ImageView
                     android:id="@+id/imageDetailList"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="10dp"
+                    android:layout_below="@id/youtube_player_view"
                     android:src="@color/black"/>
 
                 <TextView
@@ -23,6 +31,7 @@
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/youtube_player_view"
                     android:layout_toRightOf="@+id/imageDetailList"
                     style="@style/TextAppearance.AppCompat.Title"
                     android:text="Name"/>
